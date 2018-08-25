@@ -1,11 +1,16 @@
 const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
-
 app.use(bodyParser.urlencoded({extended: true}))
 
-app.listen(3000, function() {
-    app.get('/', function(req, res) {
-        res.send('Hello World')
-      })
+const MongoClient = require('mongodb').MongoClient
+
+MongoClient.connect('link-to-mongodb', (err, database) => {
+    app.listen(3000, function() {
+        app.get('/contacts', function(req, res) {
+            res.send('All Contacts')
+          })
+    })    
 })
+
+
