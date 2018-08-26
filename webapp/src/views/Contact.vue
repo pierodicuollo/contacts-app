@@ -25,7 +25,6 @@
                 <v-icon>delete</v-icon>
               </v-btn>
           </v-layout>
-        </v-card-media>
 
         <v-list two-line>
           <v-list-tile @click="">
