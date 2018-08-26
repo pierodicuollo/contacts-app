@@ -11,7 +11,7 @@
           >
 
             <v-list-tile-content>
-              <v-list-tile-title v-html="item.first_name"></v-list-tile-title>
+              <v-list-tile-title v-html="item.first_name + ' ' + item.last_name"></v-list-tile-title>
             </v-list-tile-content>
 
             <v-list-tile-action>

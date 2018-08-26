@@ -32,9 +32,10 @@
       
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
-      <v-btn icon>
-            <v-icon>search</v-icon>
-          </v-btn>
+      <v-text-field
+        v-model="searchText"
+        light solo placeholder="Search..." >
+      </v-text-field>
     </v-toolbar>
     <v-content>
       <router-view/>
@@ -58,7 +59,8 @@ export default {
       miniVariant: false,
       right: true,
       rightDrawer: false,
-      title: 'Contacts Application'
+      title: 'Contacts Application',
+      searchText: ''
     }
   }
 }
