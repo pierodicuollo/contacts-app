@@ -35,6 +35,15 @@ MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/co
                 res.send("deleted")
             });
         })
+
+        app.post('/updatecontact', (req, res) => {
+            var myquery = { _id: req.body.id };
+            var updatedContact = { $set: {first_name: req.body.first_name, last_name: req.body.last_name, phone: req.body.phone, email: req.body.email, notes: req.body.notes } };
+            db.collection("contacts").updateOne(myquery, updatedContact, function(err, obj) {
+                if (err) throw err;
+                res.send("updated")
+            });
+        })
     })    
 })
 

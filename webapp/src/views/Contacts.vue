@@ -5,7 +5,7 @@
         <v-list subheader>
           <v-list-tile
             v-for="item in items"
-            :key="item.phone_number"
+            :key="item._id"
             avatar
             @click="showItem(item._id)"
           >
@@ -24,12 +24,52 @@
         </v-list>
       </v-card>
       <v-card v-else>
+        <v-dialog v-model="dialog" persistent max-width="500px">
+          <v-card>
+            <v-card-title>
+              <span class="headline">Edit Contact</span>
+            </v-card-title>
+            <v-card-text>
+              <v-container grid-list-md>
+                <v-layout wrap>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field label="First name" v-model="currentItem.first_name" required></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6 md6>
+                    <v-text-field
+                      label="Last name"
+                      required
+                      v-model="currentItem.last_name"
+                    ></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field label="Email" v-model="currentItem.email" required></v-text-field>
+                  </v-flex>
+                  <v-flex xs12>
+                    <v-text-field label="Phone" type="number" v-model="currentItem.number" required></v-text-field>
+                  </v-flex>
+                  <v-flex xs12 sm6>
+                    <v-textarea
+                      label="Notes"
+                      v-model="currentItem.notes"
+                    ></v-textarea>
+                  </v-flex>
+                </v-layout>
+              </v-container>
+            </v-card-text>
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+              <v-btn color="blue darken-1" flat @click.native="updateItem">Save</v-btn>
+            </v-card-actions>
+          </v-card>
+        </v-dialog>
           <v-layout
             fill-height
           >
-            <v-card-title>
+            <v-card-title @click="showList = true">
               <v-btn icon>
-                <v-icon @click="showList = true">chevron_left</v-icon>
+                <v-icon>chevron_left</v-icon>
               </v-btn>
             </v-card-title>
             <v-card-title class="black--text">
@@ -37,12 +77,12 @@
             </v-card-title>
               <v-spacer></v-spacer>
 
-              <v-btn icon class="mr-3">
+              <v-btn @click="dialog = true" icon class="mr-3">
                 <v-icon>edit</v-icon>
               </v-btn>
 
-              <v-btn icon>
-                <v-icon @click="deleteItem(currentItem._id)">delete</v-icon>
+              <v-btn @click="deleteItem(currentItem._id)" icon>
+                <v-icon>delete</v-icon>
               </v-btn>
           </v-layout>
 
@@ -95,27 +135,9 @@
       return {
         showList: true,
         currentItem: '',
+        dialog: false,
         items: [
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
-          { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'}
+          { first_name: 'Contacts', last_name: 'Loading', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes', _id:"123"}
         ]
       }
     },
@@ -136,12 +158,22 @@
           this.showList = true
         }
       },
+      async UpdateContact() {
+        let result = await ContactsService.UpdateContact(this.currentItem)
+        if(result.data === 'updated')
+        {
+          this.dialog = false
+        }
+      },
       showItem(id){
         this.currentItem = this.items.find(x => x._id == id)
         this.showList = false
       },
       deleteItem(id){
         this.DeleteContact(id)
+      },
+      updateItem(){
+        this.UpdateContact()
       }
     }
   }

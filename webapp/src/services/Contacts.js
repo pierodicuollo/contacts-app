@@ -25,5 +25,19 @@ export default {
       'accept': 'application/json',
       'Content-Type': 'application/x-www-form-urlencoded'
     }})
+  },
+  UpdateContact (form) {
+    let formdata = new URLSearchParams()
+    formdata.append('id', form._id)
+    formdata.append('first_name', form.first_name)
+    formdata.append('last_name', form.last_name)
+    formdata.append('phone', form.phone)
+    formdata.append('email', form.email)
+    formdata.append('notes', form.notes)
+    return Api().post('updatecontact', formdata, {
+    headers: {
+      'accept': 'application/json',
+      'Content-Type': 'application/x-www-form-urlencoded'
+    }})
   }
 }
