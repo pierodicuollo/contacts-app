@@ -7,7 +7,7 @@
             v-for="item in items"
             :key="item.phone_number"
             avatar
-            @click="showItem(item.phone_number)"
+            @click="showItem(item._id)"
           >
 
             <v-list-tile-content>
@@ -33,7 +33,7 @@
               </v-btn>
             </v-card-title>
             <v-card-title class="black--text">
-              <div class="display-1">Ali Conners</div>
+              <div class="display-1">{{currentItem.first_name}} {{currentItem.last_name}}</div>
             </v-card-title>
               <v-spacer></v-spacer>
 
@@ -53,7 +53,7 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title>(650) 555-1234</v-list-tile-title>
+              <v-list-tile-title>{{currentItem.phone}}</v-list-tile-title>
               <v-list-tile-sub-title>Mobile</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -66,7 +66,7 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title>aliconnors@example.com</v-list-tile-title>
+              <v-list-tile-title>{{currentItem.email}}</v-list-tile-title>
               <v-list-tile-sub-title>Personal</v-list-tile-sub-title>
             </v-list-tile-content>
           </v-list-tile>
@@ -80,7 +80,7 @@
             </v-list-tile-action>
 
             <v-list-tile-content>
-              <v-list-tile-title>1400 Main Street</v-list-tile-title>
+              <v-list-tile-title>{{currentItem.notes}}</v-list-tile-title>
             </v-list-tile-content>
           </v-list-tile>
         </v-list>
@@ -94,6 +94,7 @@
     data () {
       return {
         showList: true,
+        currentItem: '',
         items: [
           { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
           { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
@@ -127,7 +128,8 @@
         this.items = result.data
         this.$forceUpdate()
       },
-      showItem(phone_number){
+      showItem(id){
+        this.currentItem = this.items.find(x => x._id == id)
         this.showList = false
       }
     }
