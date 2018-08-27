@@ -121,7 +121,6 @@ export default {
   },
   methods: {
     savenew(){
-      console.log(this.contact)
       ContactsService.postContact(this.contact)
     }
   }

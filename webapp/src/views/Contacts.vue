@@ -27,6 +27,7 @@
   </v-layout>
 </template>
 <script>
+  import ContactsService from '../services/Contacts.js'
   export default {
     data () {
       return {
@@ -52,6 +53,16 @@
           { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'},
           { first_name: 'Jason Oner', last_name: 'Michelle', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes'}
         ]
+      }
+    },
+    created () {
+      this.FetchContacts()
+    },
+    methods: {
+      async FetchContacts() {
+        let result = await ContactsService.fetchContacts()
+        this.items = result.data
+        this.$forceUpdate()
       }
     }
   }
