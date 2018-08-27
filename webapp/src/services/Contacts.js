@@ -5,6 +5,6 @@ export default {
     return Api().get('contacts')
   },
   postContact (form) {
-      return Api().post('contacts', form)
+      return Api().post('contacts', {form})
   }
 }
