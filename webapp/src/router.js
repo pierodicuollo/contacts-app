@@ -1,6 +1,5 @@
 import Vue from 'vue'
 import Router from 'vue-router'
-import Contact from './views/Contact.vue'
 import Contacts from './views/Contacts.vue'
 
 Vue.use(Router)
@@ -11,11 +10,6 @@ export default new Router({
       path: '/',
       name: 'home',
       component: Contacts
-    },
-    {
-      path: '/contact',
-      name: 'contact',
-      component: Contact
     }
   ]
 })
