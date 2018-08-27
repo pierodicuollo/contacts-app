@@ -42,7 +42,7 @@
               </v-btn>
 
               <v-btn icon>
-                <v-icon>delete</v-icon>
+                <v-icon @click="deleteItem(currentItem._id)">delete</v-icon>
               </v-btn>
           </v-layout>
 
@@ -128,9 +128,20 @@
         this.items = result.data
         this.$forceUpdate()
       },
+      async DeleteContact(id) {
+        let result = await ContactsService.DeleteContact(id)
+        if(result.data === 'deleted')
+        {
+          this.items.splice(this.items.findIndex(x => x._id == id), 1)
+          this.showList = true
+        }
+      },
       showItem(id){
         this.currentItem = this.items.find(x => x._id == id)
         this.showList = false
+      },
+      deleteItem(id){
+        this.DeleteContact(id)
       }
     }
   }

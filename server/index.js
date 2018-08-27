@@ -22,11 +22,18 @@ MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/co
         })
 
         app.post('/contacts', (req, res) => {
-            console.log(req.body)
             db.collection('contacts').save(req.body, (err, result) => {
               if (err) return console.log(err)
               res.send("Saved")
             })
+        })
+
+        app.post('/deletecontact', (req, res) => {
+            var myquery = { _id: req.body.id };
+            db.collection("contacts").deleteOne(myquery, function(err, obj) {
+                if (err) throw err;
+                res.send("deleted")
+            });
         })
     })    
 })
