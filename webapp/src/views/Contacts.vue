@@ -7,7 +7,7 @@
             v-for="item in items"
             :key="item.phone_number"
             avatar
-            @click=""
+            @click="showItem(item.phone_number)"
           >
 
             <v-list-tile-content>
@@ -25,14 +25,12 @@
       </v-card>
       <v-card v-else>
           <v-layout
-
             fill-height
           >
             <v-card-title>
               <v-btn icon>
-                <v-icon>chevron_left</v-icon>
+                <v-icon @click="showList = true">chevron_left</v-icon>
               </v-btn>
-
             </v-card-title>
             <v-card-title class="black--text">
               <div class="display-1">Ali Conners</div>
@@ -128,6 +126,9 @@
         let result = await ContactsService.fetchContacts()
         this.items = result.data
         this.$forceUpdate()
+      },
+      showItem(phone_number){
+        this.showList = false
       }
     }
   }
