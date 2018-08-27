@@ -19,8 +19,6 @@ MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/co
         app.post('/contacts', (req, res) => {
             db.collection('contacts').save(req.body, (err, result) => {
               if (err) return console.log(err)
-          
-              console.log('saved to database')
               res.send("Saved")
             })
         })

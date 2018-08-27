@@ -13,7 +13,7 @@ export default new Router({
       component: Contacts
     },
     {
-      path: '/',
+      path: '/contact',
       name: 'contact',
       component: Contact
     }

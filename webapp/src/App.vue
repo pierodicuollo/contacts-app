@@ -55,24 +55,25 @@
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md6>
-                <v-text-field label="First name" required></v-text-field>
+                <v-text-field label="First name" v-model="contact.first_name" required></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md6>
                 <v-text-field
                   label="Last name"
                   required
+                  v-model="contact.last_name"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Email" required></v-text-field>
+                <v-text-field label="Email" v-model="contact.email" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Phone" type="number" required></v-text-field>
+                <v-text-field label="Phone" type="number" v-model="contact.number" required></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-textarea
                   label="Notes"
-                  chips
+                  v-model="contact.notes"
                 ></v-textarea>
               </v-flex>
             </v-layout>
@@ -81,7 +82,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="savenew">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -91,11 +92,18 @@
 </template>
 
 <script>
-
+import ContactsService from './services/Contacts.js';
 export default {
   name: 'App',
   data () {
     return {
+      contact: {
+        first_name: '',
+        last_name: '',
+        number: '',
+        email: '',
+        notes: ''
+      },
       clipped: true,
       drawer: true,
       fixed: true,
@@ -109,6 +117,12 @@ export default {
       title: 'Contacts Application',
       searchText: '',
       dialog: false
+    }
+  },
+  methods: {
+    savenew(){
+      console.log(this.contact)
+      ContactsService.postContact(this.contact)
     }
   }
 }
