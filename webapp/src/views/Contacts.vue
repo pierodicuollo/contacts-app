@@ -81,7 +81,7 @@
                 <v-icon>edit</v-icon>
               </v-btn>
 
-              <v-btn @click="deleteItem(currentItem._id)" icon>
+              <v-btn @click="deleteItem(currentItem)" icon>
                 <v-icon>delete</v-icon>
               </v-btn>
           </v-layout>
@@ -134,46 +134,31 @@
     data () {
       return {
         showList: true,
-        currentItem: '',
         dialog: false,
-        items: [
-          { first_name: 'Contacts', last_name: 'Loading', email:'michele@gmail.com', phone_number:'+123456789', notes:'Some notes', _id:"123"}
-        ]
+        currentItem: ''
       }
     },
     created () {
-      this.FetchContacts()
+      this.$store.dispatch('loadContacts')
+    },
+    computed: {
+      items () {
+        return this.$store.getters.contacts
+      }
     },
     methods: {
-      async FetchContacts() {
-        let result = await ContactsService.fetchContacts()
-        this.items = result.data
-        this.$forceUpdate()
-      },
-      async DeleteContact(id) {
-        let result = await ContactsService.DeleteContact(id)
-        if(result.data === 'deleted')
-        {
-          this.items.splice(this.items.findIndex(x => x._id == id), 1)
-          this.showList = true
-        }
-      },
-      async UpdateContact() {
-        let result = await ContactsService.UpdateContact(this.currentItem)
-        if(result.data === 'updated')
-        {
-          this.dialog = false
-        }
-      },
       showItem(id){
         this.currentItem = this.items.find(x => x._id == id)
         this.showList = false
       },
-      deleteItem(id){
-        this.DeleteContact(id)
+      deleteItem(contact){
+        this.$store.dispatch('removeContact', contact)
+        this.showList = true
       },
-      updateItem(){
-        this.UpdateContact()
+      updateItem(contact){
+        this.$store.dispatch('updateContact', this.currentItem)
+        this.dialog = false
+        this.showList = true
       }
     }
   }

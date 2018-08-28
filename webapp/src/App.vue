@@ -42,7 +42,7 @@
                 <v-text-field label="Email" v-model="contact.email" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Phone" type="number" v-model="contact.number" required></v-text-field>
+                <v-text-field label="Phone" type="number" v-model="contact.phone" required></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-textarea
@@ -56,7 +56,7 @@
         <v-card-actions>
           <v-spacer></v-spacer>
           <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="savenew">Save</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="setNewContact">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -74,7 +74,7 @@ export default {
       contact: {
         first_name: '',
         last_name: '',
-        number: '',
+        phone: '',
         email: '',
         notes: ''
       },
@@ -84,14 +84,23 @@ export default {
     }
   },
   methods: {
-    savenew(){
-      this.NewContact()
+    setNewContact () {
+      var newContact = new Object();
+      newContact.first_name = this.contact.first_name
+      newContact.last_name = this.contact.last_name
+      newContact.phone = this.contact.phone
+      newContact.email = this.contact.email
+      newContact.notes = this.contact.notes
+      this.$store.dispatch('addContact', newContact)
+      this.resetNewContact()
+      this.dialog = false
     },
-    async NewContact(){
-      let result = await ContactsService.postContact(this.contact)
-      if(result.data === 'Saved'){
-        this.dialog = false
-      }
+    resetNewContact () {
+      this.contact.first_name = ''
+      this.contact.last_name = ''
+      this.contact.phone = ''
+      this.contact.email = ''
+      this.contact.notes = ''
     }
   }
 }
