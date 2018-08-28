@@ -19,7 +19,7 @@ export default new Vuex.Store({
       state.contacts.push(contactsObject)
     },
     UPDATE_CONTACT (state, contactsObject) {
-      state.contacts[state.contacts.findIndex(x => x._id == contact._id)] = contactsObject
+      state.contacts[state.contacts.findIndex(x => x._id == contactsObject._id)] = contactsObject
     }
   },
   actions: {
@@ -59,6 +59,7 @@ export default new Vuex.Store({
       })
     },
     updateContact ({ commit }, contact) {
+      const newContact = contact
       let formdata = new URLSearchParams()
       formdata.append('id', contact._id)
       formdata.append('first_name', contact.first_name)
@@ -71,7 +72,7 @@ export default new Vuex.Store({
           'accept': 'application/json',
           'Content-Type': 'application/x-www-form-urlencoded'
         }}).then(_ => {
-        commit('UPDATE_CONTACT', contact)
+        commit('UPDATE_CONTACT', newContact)
       })
     }
   },
