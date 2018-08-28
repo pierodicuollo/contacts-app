@@ -1,10 +1,27 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm12>
+      <v-toolbar
+      app
+    >
+      <v-toolbar-title v-text="title"></v-toolbar-title>
+      <v-spacer></v-spacer>
+      <v-text-field
+        v-model="searchText"
+        light solo placeholder="Search..." >
+      </v-text-field>
+      <v-btn
+            fab
+            small
+            @click.native.stop="dialog = !dialog"
+      >
+        <v-icon>add</v-icon>
+      </v-btn>
+    </v-toolbar>
       <v-card v-if="showList">
         <v-list subheader>
           <v-list-tile
-            v-for="item in items"
+            v-for="item in filteredItems"
             :key="item._id"
             avatar
             @click="showItem(item._id)"
@@ -14,12 +31,6 @@
               <v-list-tile-title v-html="item.first_name + ' ' + item.last_name"></v-list-tile-title>
             </v-list-tile-content>
 
-            <v-list-tile-action>
-              <v-icon>email</v-icon>
-            </v-list-tile-action>
-            <v-list-tile-action>
-              <v-icon>dialpad</v-icon>
-            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-card>
@@ -46,7 +57,7 @@
                     <v-text-field label="Email" v-model="currentItem.email" required></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-text-field label="Phone" type="number" v-model="currentItem.phone" required></v-text-field>
+                    <v-text-field label="Phone" type="number" v-model="currentItem.phone" required href="tel:+6494461709"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6>
                     <v-textarea
@@ -135,7 +146,8 @@
       return {
         showList: true,
         dialog: false,
-        currentItem: ''
+        currentItem: '',
+        searchText: ''
       }
     },
     created () {
@@ -143,7 +155,15 @@
     },
     computed: {
       items () {
-        return this.$store.getters.contacts
+        return this.$store.getters.contacts.sort(function(a,b){
+          return a.first_name.toLowerCase().localeCompare(b.first_name.toLowerCase());
+        })
+      },
+      filteredItems () {
+        let vm = this
+        return this.items.filter(function(item){
+          return item.first_name.includes(vm.searchText) || item.last_name.includes(vm.searchText)
+        })
       }
     },
     methods: {

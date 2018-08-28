@@ -1,22 +1,5 @@
 <template>
   <v-app>
-    <v-toolbar
-      app
-    >
-      <v-toolbar-title v-text="title"></v-toolbar-title>
-      <v-spacer></v-spacer>
-      <v-text-field
-        v-model="searchText"
-        light solo placeholder="Search..." >
-      </v-text-field>
-      <v-btn
-            fab
-            small
-            @click.native.stop="dialog = !dialog"
-      >
-        <v-icon>add</v-icon>
-      </v-btn>
-    </v-toolbar>
     <v-content>
       <router-view/>
       <v-layout row justify-center>
@@ -79,7 +62,6 @@ export default {
         notes: ''
       },
       title: 'Contacts Application',
-      searchText: '',
       dialog: false
     }
   },
