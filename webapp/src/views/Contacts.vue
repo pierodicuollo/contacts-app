@@ -46,7 +46,7 @@
                     <v-text-field label="Email" v-model="currentItem.email" required></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-text-field label="Phone" type="number" v-model="currentItem.number" required></v-text-field>
+                    <v-text-field label="Phone" type="number" v-model="currentItem.phone" required></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6>
                     <v-textarea
