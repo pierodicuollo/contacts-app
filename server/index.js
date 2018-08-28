@@ -2,8 +2,8 @@ const express = require('express')
 const bodyParser= require('body-parser')
 const app = express()
 app.use(bodyParser.urlencoded({extended: true}))
-
-const MongoClient = require('mongodb').MongoClient
+var mongodb = require('mongodb')
+const MongoClient = mongodb.MongoClient
 var db
 MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/contacts-app-pi', (err, client) => {
     if (err) return console.log(err)
@@ -29,7 +29,7 @@ MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/co
         })
 
         app.post('/deletecontact', (req, res) => {
-            var myquery = { _id: req.body.id };
+            var myquery = {_id: new mongodb.ObjectID(req.body.id)};
             db.collection("contacts").deleteOne(myquery, function(err, obj) {
                 if (err) throw err;
                 res.send("deleted")
@@ -37,7 +37,7 @@ MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/co
         })
 
         app.post('/updatecontact', (req, res) => {
-            var myquery = { _id: req.body.id };
+            var myquery = {_id: new mongodb .ObjectID(req.body.id)};
             var updatedContact = { $set: {first_name: req.body.first_name, last_name: req.body.last_name, phone: req.body.phone, email: req.body.email, notes: req.body.notes } };
             db.collection("contacts").updateOne(myquery, updatedContact, function(err, obj) {
                 if (err) throw err;
