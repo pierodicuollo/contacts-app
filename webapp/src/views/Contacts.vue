@@ -153,7 +153,7 @@
 
           <v-divider inset></v-divider>
 
-          <v-list-tile @click="">
+          <v-list-tile @click="mail(currentItem)">
             <v-list-tile-action>
               <v-icon color="indigo">mail</v-icon>
             </v-list-tile-action>
@@ -248,6 +248,9 @@
         this.contact.phone = ''
         this.contact.email = ''
         this.contact.notes = ''
+      },
+      mail (contact) {
+        this.$router.push({path: '/email', query: { user: contact._id }})
       }
     }
   }
