@@ -85,7 +85,13 @@ export default {
   },
   methods: {
     savenew(){
-      ContactsService.postContact(this.contact)
+      this.NewContact()
+    },
+    async NewContact(){
+      let result = await ContactsService.postContact(this.contact)
+      if(result.data === 'Saved'){
+        this.dialog = false
+      }
     }
   }
 }
