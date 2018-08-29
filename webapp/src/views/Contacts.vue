@@ -54,7 +54,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
+          <v-btn color="blue darken-1" flat @click.native="newdialog = false">Close</v-btn>
           <v-btn color="blue darken-1" flat @click.native="setNewContact">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -190,7 +190,7 @@
         dialog: false,
         currentItem: '',
         searchText: '',
-        title: 'Contacts Application',
+        title: 'Contacts Manager Application',
         contact: {
           first_name: '',
           last_name: '',
