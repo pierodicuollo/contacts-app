@@ -18,7 +18,7 @@ function sendEmail(
   ) {
     const errorEmails = [];
     const successfulEmails = [];
-     const sg = require('sendgrid')   ('__YOUR_APIKEY_CREATED_ON_SENDGRID__');
+     const sg = require('sendgrid')   ('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');
      async.parallel([
       function(callback) {
         // Add to emails
@@ -100,13 +100,15 @@ MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/co
         })
 
         app.post('/email', (req, res) => {
+          console.log(req.body)
             async.parallel([
                 function (callback) {
                   sendEmail(
                     callback,
-                    'YOUR_FROM_EMAIL@example.com',
+                    'pdicuollo@gmail.com',
                     [req.body.email],
                     req.body.subject,
+                    req.body.body,
                     req.body.body
                   );
                 }

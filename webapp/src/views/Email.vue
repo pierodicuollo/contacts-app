@@ -68,8 +68,12 @@
       }
     },
     methods: {
-      send () {
-        EmailService.postMail(this.message)
+      async send () {
+        this.message.email = this.user.email
+        let result = await EmailService.postMail(this.message)
+        if (result.data.success){
+          this.$router.push('/')
+        }
       },
       back () {
           this.$router.push('/')
