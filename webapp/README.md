@@ -1,4 +1,5 @@
 # webapp
+The front end app side of contacts management application. Its built with vue so make sure to run npm install to install all dependencies first.
 
 ## Project setup
 ```
