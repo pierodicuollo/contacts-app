@@ -18,7 +18,7 @@ function sendEmail(
   ) {
     const errorEmails = [];
     const successfulEmails = [];
-     const sg = require('sendgrid')   ('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');
+     const sg = require('sendgrid')   ('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');
      async.parallel([
       function(callback) {
         // Add to emails
