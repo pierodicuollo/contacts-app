@@ -76,6 +76,11 @@
     },
     methods: {
       async send () {
+        if(this.message.subject === '' || this.message.body === '') {
+          this.type = 'warning'
+          this.error = 'Please supply both subject and body'
+          return
+        }
         this.message.email = this.user.email
         let result = await EmailService.postMail(this.message)
         if (result.data.success){
