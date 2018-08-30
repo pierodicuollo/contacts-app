@@ -3,11 +3,15 @@
     <v-flex xs12 sm12>
       <v-toolbar
       app
+      color="cyan" dark
+      style="height:70px;"
     >
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
       <v-text-field
+        id="searchbar"
         v-model="searchText"
+        style="margin-top:10px;"
         light solo placeholder="Search..." >
       </v-text-field>
       <v-btn
@@ -72,7 +76,9 @@
             <v-list-tile-content>
               <v-list-tile-title v-html="item.first_name + ' ' + item.last_name"></v-list-tile-title>
             </v-list-tile-content>
-
+            <v-list-tile-action>
+              <v-icon>chevron_right</v-icon>
+            </v-list-tile-action>
           </v-list-tile>
         </v-list>
       </v-card>

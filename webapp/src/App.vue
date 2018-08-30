@@ -6,9 +6,11 @@
     </v-content>
   </v-app>
 </template>
+<style>
+@import url('https://fonts.googleapis.com/css?family=Montserrat');
+</style>
 
 <script>
-import ContactsService from './services/Contacts.js';
 export default {
   name: 'App',
   data () {
