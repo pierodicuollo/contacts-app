@@ -58,8 +58,8 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="blue darken-1" flat @click.native="newdialog = false">Close</v-btn>
-          <v-btn color="blue darken-1" flat @click.native="setNewContact">Save</v-btn>
+          <v-btn color="cyan darken-1" @click.native="newdialog = false">Close</v-btn>
+          <v-btn color="cyan darken-1" @click.native="setNewContact">Save</v-btn>
         </v-card-actions>
       </v-card>
     </v-dialog>
@@ -118,37 +118,47 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="blue darken-1" flat @click.native="dialog = false">Close</v-btn>
-              <v-btn color="blue darken-1" flat @click.native="updateItem">Save</v-btn>
+              <v-btn color="cyan darken-1" @click.native="dialog = false">Close</v-btn>
+              <v-btn color="cyan darken-1" @click.native="updateItem">Save</v-btn>
             </v-card-actions>
           </v-card>
         </v-dialog>
-          <v-layout
+          <v-layout 
             fill-height
           >
-            <v-card-title @click="showList = true">
-              <v-btn icon>
+            <v-card-title>
+              <v-btn
+                fab
+                small
+                @click.native.stop="showList = true"
+              >
                 <v-icon>chevron_left</v-icon>
               </v-btn>
             </v-card-title>
-            <v-card-title class="black--text">
-              <div class="display-1">{{currentItem.first_name}} {{currentItem.last_name}}</div>
-            </v-card-title>
               <v-spacer></v-spacer>
-
-              <v-btn @click="dialog = true" icon class="mr-3">
+            <v-card-title>
+              <v-btn @click.native.stop="dialog = true" fab
+                small>
                 <v-icon>edit</v-icon>
               </v-btn>
-
-              <v-btn @click="deleteItem(currentItem)" icon>
+            </v-card-title>
+            <v-card-title>
+              <v-btn @click.native.stop="deleteItem(currentItem)" fab
+                small>
                 <v-icon>delete</v-icon>
               </v-btn>
+              
+            </v-card-title>
           </v-layout>
+
+          <v-card-title class="black--text">
+              <div class="display-1">{{currentItem.first_name}} {{currentItem.last_name}}</div>
+            </v-card-title>
 
         <v-list two-line>
           <v-list-tile @click="">
             <v-list-tile-action>
-              <v-icon color="indigo">phone</v-icon>
+              <v-icon color="black">phone</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
@@ -161,7 +171,7 @@
 
           <v-list-tile @click="mail(currentItem)">
             <v-list-tile-action>
-              <v-icon color="indigo">mail</v-icon>
+              <v-icon color="black">mail</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>
@@ -175,7 +185,7 @@
 
           <v-list-tile @click="">
             <v-list-tile-action>
-              <v-icon color="indigo">notes</v-icon>
+              <v-icon color="black">notes</v-icon>
             </v-list-tile-action>
 
             <v-list-tile-content>

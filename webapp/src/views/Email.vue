@@ -1,10 +1,15 @@
 <template>
   <v-layout row>
     <v-flex xs12 sm12>
-      <v-toolbar app>
+      <v-toolbar app
+      color="cyan" dark
+      style="height:70px;">
       <v-toolbar-title v-text="title"></v-toolbar-title>
     </v-toolbar>
       <v-card>
+        <v-card-title :class="type">
+          {{error}}
+        </v-card-title>
           <v-form>
             <v-card-title>
                 <v-text-field
@@ -33,8 +38,8 @@
             ></v-text-field>
             </v-card-title>
             <v-card-title>
-                <v-btn@click="send">send</v-btn>
-                <v-btn @click="back">back</v-btn>
+                <v-btn color="cyan darken-1" @click="send">send</v-btn>
+                <v-btn color="cyan darken-1" @click="back">back</v-btn>
             </v-card-title>
           </v-form>
       </v-card>
@@ -56,7 +61,9 @@
             email: '',
             subject: '',
             body: ''
-        }
+        },
+        error: '',
+        type: '',
       }
     },
     created () {
@@ -72,7 +79,11 @@
         this.message.email = this.user.email
         let result = await EmailService.postMail(this.message)
         if (result.data.success){
-          this.$router.push('/')
+          this.type = 'success'
+          this.error = 'Your message has been sent successfully'
+        }else{
+          this.type = 'warning'
+          this.error = 'Cannot send email. Something has gone wrong!'
         }
       },
       back () {
