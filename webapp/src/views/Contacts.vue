@@ -28,24 +28,27 @@
         <v-card-title>
           <span class="headline">New Contact</span>
         </v-card-title>
+        <v-card-title :class="type">
+          {{error}}
+        </v-card-title>
         <v-card-text>
           <v-container grid-list-md>
             <v-layout wrap>
               <v-flex xs12 sm6 md6>
-                <v-text-field label="First name" v-model="contact.first_name" required></v-text-field>
+                <v-text-field label="First name *" v-model="contact.first_name" required></v-text-field>
               </v-flex>
               <v-flex xs12 sm6 md6>
                 <v-text-field
-                  label="Last name"
+                  label="Last name *"
                   required
                   v-model="contact.last_name"
                 ></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Email" v-model="contact.email" required></v-text-field>
+                <v-text-field label="Email *" v-model="contact.email" required></v-text-field>
               </v-flex>
               <v-flex xs12>
-                <v-text-field label="Phone" type="number" v-model="contact.phone" required></v-text-field>
+                <v-text-field label="Phone *" type="number" v-model="contact.phone" required></v-text-field>
               </v-flex>
               <v-flex xs12 sm6>
                 <v-textarea
@@ -58,7 +61,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="cyan darken-1" @click.native="newdialog = false">Close</v-btn>
+          <v-btn color="cyan darken-1" @click.native="newdialog = false, error = '', type = ''">Close</v-btn>
           <v-btn color="cyan darken-1" @click.native="setNewContact">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -88,24 +91,27 @@
             <v-card-title>
               <span class="headline">Edit Contact</span>
             </v-card-title>
+            <v-card-title :class="editType">
+              {{editError}}
+            </v-card-title>
             <v-card-text>
               <v-container grid-list-md>
                 <v-layout wrap>
                   <v-flex xs12 sm6 md6>
-                    <v-text-field label="First name" v-model="currentItem.first_name" required></v-text-field>
+                    <v-text-field label="First name *" v-model="currentItem.first_name" required></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6 md6>
                     <v-text-field
-                      label="Last name"
+                      label="Last name *"
                       required
                       v-model="currentItem.last_name"
                     ></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-text-field label="Email" v-model="currentItem.email" required></v-text-field>
+                    <v-text-field label="Email *" v-model="currentItem.email" required></v-text-field>
                   </v-flex>
                   <v-flex xs12>
-                    <v-text-field label="Phone" type="number" v-model="currentItem.phone" required href="tel:+6494461709"></v-text-field>
+                    <v-text-field label="Phone *" type="number" v-model="currentItem.phone" required href="tel:+6494461709"></v-text-field>
                   </v-flex>
                   <v-flex xs12 sm6>
                     <v-textarea
@@ -118,7 +124,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="cyan darken-1" @click.native="dialog = false">Close</v-btn>
+              <v-btn color="cyan darken-1" @click.native="dialog = false, editError = '', editType = ''">Close</v-btn>
               <v-btn color="cyan darken-1" @click.native="updateItem">Save</v-btn>
             </v-card-actions>
           </v-card>
@@ -214,7 +220,11 @@
           email: '',
           notes: ''
         },
-        newdialog: false
+        newdialog: false,
+        type: '',
+        error: '',
+        editType: '',
+        editError: '',
       }
     },
     created () {
@@ -237,17 +247,29 @@
       showItem(id){
         this.currentItem = this.items.find(x => x._id == id)
         this.showList = false
+        this.editType = ''
+        this.editError = ''
       },
       deleteItem(contact){
         this.$store.dispatch('removeContact', contact)
         this.showList = true
       },
-      updateItem(contact){
+      updateItem(){
+        if(this.currentItem.first_name === '' || this.currentItem.last_name === '' || this.currentItem.phone === '' || this.currentItem.email === ''){
+          this.editError = 'Please provide all fields'
+          this.editType = 'warning'
+          return
+        }
         this.$store.dispatch('updateContact', this.currentItem)
         this.dialog = false
         this.showList = true
       },
       setNewContact () {
+        if(this.contact.first_name === '' || this.contact.last_name === '' || this.contact.phone === '' || this.contact.email === ''){
+          this.error = 'Please provide all fields'
+          this.type = 'warning'
+          return
+        }
         var newContact = new Object();
         newContact.first_name = this.contact.first_name
         newContact.last_name = this.contact.last_name
@@ -257,6 +279,8 @@
         this.$store.dispatch('addContact', newContact)
         this.resetNewContact()
         this.newdialog = false
+        this.type = ''
+        this.error = ''
       },
       resetNewContact () {
         this.contact.first_name = ''
