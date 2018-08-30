@@ -39,7 +39,7 @@
             </v-card-title>
             <v-card-title>
                 <v-btn color="cyan darken-1" @click="send">send</v-btn>
-                <v-btn color="cyan darken-1" @click="back">back</v-btn>
+                <v-btn color="red darken-1" @click="back">back</v-btn>
             </v-card-title>
           </v-form>
       </v-card>

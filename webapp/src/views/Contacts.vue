@@ -4,7 +4,7 @@
       <v-toolbar
       app
       color="cyan" dark
-      style="height:70px;"
+      style="height:65px;"
     >
       <v-toolbar-title v-text="title"></v-toolbar-title>
       <v-spacer></v-spacer>
@@ -61,7 +61,7 @@
         </v-card-text>
         <v-card-actions>
           <v-spacer></v-spacer>
-          <v-btn color="cyan darken-1" @click.native="newdialog = false, error = '', type = ''">Close</v-btn>
+          <v-btn color="red darken-1" @click.native="newdialog = false, error = '', type = ''">Close</v-btn>
           <v-btn color="cyan darken-1" @click.native="setNewContact">Save</v-btn>
         </v-card-actions>
       </v-card>
@@ -124,7 +124,7 @@
             </v-card-text>
             <v-card-actions>
               <v-spacer></v-spacer>
-              <v-btn color="cyan darken-1" @click.native="dialog = false, editError = '', editType = ''">Close</v-btn>
+              <v-btn color="red darken-1" @click.native="dialog = false, editError = '', editType = ''">Close</v-btn>
               <v-btn color="cyan darken-1" @click.native="updateItem">Save</v-btn>
             </v-card-actions>
           </v-card>
