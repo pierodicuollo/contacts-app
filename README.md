@@ -22,9 +22,8 @@ Back end:
 The back end application is located in the "server" folder. It has been developed using `node.js` and `mongodb`, as I mentioned. In particular, it has been used a free instance of mongodb from `mlab.com`, for demo purposes. 
 I will send you the credentials in order to login in 'mlab' and have a look at the database behavior. 
 
-    To run the server:
-        1. Clone the repository. 
-        2. Run cd server
-        3. Run npm run dev
+    To run the server (after you've cloned the repository and, obviously, in another CLI instance): 
+        1. Run cd server
+        2. Run npm run dev
 
 The application will be available on: localhost:8080/
