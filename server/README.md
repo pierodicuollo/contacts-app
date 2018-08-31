@@ -1,7 +1,7 @@
 # server
-Contains the code for the backend application.
+Contains the code for the backend side of the application.
 
-It is a simple node.js application that uses mongodb to connect with mlab.com mongodb instance and perform operations like.
+It is a simple node.js application that uses mongodb to connect with mlab.com mongodb instance and perform operations like:
 
 1. Fetch all
 2. Add new
