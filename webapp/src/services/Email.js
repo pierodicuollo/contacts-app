@@ -1,3 +1,5 @@
+//service API for email form
+
 import Api from '@/services/Api'
 
 export default {

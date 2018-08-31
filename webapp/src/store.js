@@ -1,3 +1,5 @@
+//state and actions from Vuex + axios integration for "get" and "post"
+
 import Vue from 'vue'
 import Vuex from 'vuex'
 import axios from 'axios'

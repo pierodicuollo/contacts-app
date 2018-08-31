@@ -1,3 +1,5 @@
+//vuetify template for the email form
+
 <template>
   <v-layout row>
     <v-flex xs12 sm12>

@@ -1,3 +1,5 @@
+//Internal router manager
+
 import Vue from 'vue'
 import Router from 'vue-router'
 import Contacts from './views/Contacts.vue'

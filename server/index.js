@@ -59,6 +59,9 @@ function sendEmail(
     );
 }
 
+
+      //Mongo Connection
+      
 MongoClient.connect('mongodb://pdicuollo:password-123@ds133642.mlab.com:33642/contacts-app-pi', (err, client) => {
     if (err) return console.log(err)
     db = client.db('contacts-app-pi')

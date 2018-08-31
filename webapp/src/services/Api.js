@@ -1,3 +1,5 @@
+//axios HTTP client integration for node.js
+
 import axios from 'axios'
 
 export default() => {
