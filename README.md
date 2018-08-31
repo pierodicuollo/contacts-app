@@ -14,7 +14,8 @@ The server must be run first to perform fetching of contacts and all other opera
     
     To run the webapp:
         1. Clone the repository
-        2. Run cd webapp
+        2. Run cd webapp (in the local folder in which you've cloned the repository)
+        3. Run npm install
         3. Run npm run serve 
 
 Back end:
@@ -23,7 +24,8 @@ The back end application is located in the "server" folder. It has been develope
 I will send you the credentials in order to login in 'mlab' and have a look at the database behavior. 
 
     To run the server (after you've cloned the repository and, obviously, in another CLI instance): 
-        1. Run cd server
-        2. Run npm run dev
+        1. Run cd server (in the local folder in which you've cloned the repository)
+        2. Run nmp install
+        3. Run npm run dev
 
 The application will be available on: localhost:8080/
